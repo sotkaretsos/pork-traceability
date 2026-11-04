@@ -44,7 +44,7 @@ contract PorkTrace is AccessControl {
         bytes2 countryOfSlaughter;
     }
 
-    /// @notice Delivery batch (Table S4).
+    /// @notice Delivery batch.
     struct Batch {
         ProductType productType;
         StorageType storageType;
@@ -81,7 +81,7 @@ contract PorkTrace is AccessControl {
         bytes32 docHash;
     }
 
-    /// @notice Storage report (Table S5).
+    /// @notice Storage report.
     struct StorageReport {
         uint8 storageUnit;
         uint64 windowStart;
@@ -94,7 +94,7 @@ contract PorkTrace is AccessControl {
         bool breach;
     }
 
-    /// @notice Serving lot (Table S6).
+    /// @notice Serving lot.
     struct Lot {
         uint64 openedAt;
         bytes32[] batchIds;
@@ -116,7 +116,7 @@ contract PorkTrace is AccessControl {
         address withdrawnBy; // the owner, or the sensor whose report triggered an automatic withdrawal
     }
 
-    /// @notice Everything the customer's verification page needs (Table S7), in one call.
+    /// @notice Everything the customer's verification page needs, in one call.
     struct LotSummary {
         Origin origin;
         bytes2 singleCountry; // set only when birth, rearing and slaughter are the same country for every batch
@@ -143,7 +143,7 @@ contract PorkTrace is AccessControl {
     bytes2 public constant MIXED = "XX";
     uint256 public constant MAX_BATCHES_PER_LOT = 16;
 
-    // ======================================= parameters set at deployment (Table S9)
+    // ======================================= parameters set at deployment
 
     int16 public immutable chilledLimit;
     int16 public immutable frozenLimit;
