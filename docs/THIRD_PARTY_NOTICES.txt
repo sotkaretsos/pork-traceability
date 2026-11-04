@@ -1,7 +1,7 @@
 THIRD-PARTY SOFTWARE LICENSES AND NOTICES
 Pork Traceability live demo, release 2.0.0
 
-This notice accompanies docs/assets/demo.js (SHA-256 b1be1a88c22a8edc2a2a5f4d8f8b2a20c72ebc45e2cf4fc795544af43101e6e2).
+This notice accompanies docs/assets/demo.js (SHA-256 cc053e09a9da59f006f385a2e5bedd0339ee61fe2c27599624f403dd7adea86a).
 The package list is derived from the esbuild metafile: every package that contributes bytes to the bundle is listed.
 The compiled PorkTraceability bytecode embedded in the bundle includes OpenZeppelin Contracts (MIT).
 demo/src/local-chain.js and docs/assets/style.css are adapted from evoo-carbon-ledger (https://github.com/sotkaretsos/evoo-carbon-ledger), MIT License, Copyright (c) 2026 Sotirios Karetsos, Konstantinos Demestichas, Constantina Costopoulou.

@@ -227,7 +227,7 @@ async function runStep() {
     const deploy = step.key === "setup" ? demo.totals().deploymentGas : 0;
     const gas = entries.reduce((s, e) => s + e.gasUsed, 0) + deploy;
     const n = entries.length + (deploy ? 1 : 0);
-    $(`#meta-${step.key}`).textContent = `${n} transactions · ${fmt(gas)} gas · ${((performance.now() - t0) / 1000).toFixed(1)} s in your browser`;
+    $(`#meta-${step.key}`).textContent = `${n} transaction${n === 1 ? "" : "s"} · ${fmt(gas)} gas · ${((performance.now() - t0) / 1000).toFixed(1)} s in your browser`;
     li.dataset.state = "done";
     next += 1;
     if (step.key === "setup") demo.minCookingTemp = await demo.c.minCookingTemp();
