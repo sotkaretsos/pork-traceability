@@ -4,8 +4,8 @@ pragma solidity ^0.8.24;
 import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Organisation, Device} from "../PorkTypes.sol";
 
-/// @title Access control module (Section 3.3, 5.1, 6.1)
-/// @notice Registers organisations and IoT gateways and assigns the on-chain roles of Table 2.
+/// @title Access control module
+/// @notice Registers organisations and IoT gateways and assigns the on-chain roles.
 ///         Every role except SENSOR may only be held by a registered organisation;
 ///         SENSOR may only be held by an active registered device.
 abstract contract AccessRegistry is AccessControl {

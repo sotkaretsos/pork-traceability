@@ -10,7 +10,7 @@ import {ProductType, StorageType} from "./PorkTypes.sol";
 /// @notice Blockchain traceability for pork in food service: slaughterhouse → cutting plant →
 ///         meat processor → refrigerated transport → souvlaki restaurant → consumer.
 ///         Deployed on a private, permissioned Hyperledger Besu network (QBFT, zero gas price).
-///         Composes the four modules of Section 3.3: access control, traceability registry,
+///         Composes four modules: access control, traceability registry,
 ///         cold-chain monitor and recall manager.
 ///         New batches start in PENDING_INSPECTION (carcasses) or ACTIVE (transformation outputs);
 ///         every later status change emits BatchStatusChanged.
@@ -20,7 +20,7 @@ contract PorkTraceability is TraceabilityRegistry, ColdChainMonitor, RecallManag
         if (admin == address(0)) revert ZeroAddress();
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
 
-        // Default limits, Table 7 (tenths of °C). The authority can change them with setTemperatureLimit.
+        // Default limits (tenths of °C). The authority can change them with setTemperatureLimit.
         _setLimit(ProductType.CARCASS, StorageType.CHILLED, 70); // Reg. 853/2004 Annex III Sec. I: ≤ 7 °C
         _setLimit(ProductType.PRIMAL_CUT, StorageType.CHILLED, 70);
         _setLimit(ProductType.CARCASS, StorageType.FROZEN, -180);

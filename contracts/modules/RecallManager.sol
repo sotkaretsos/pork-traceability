@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 import {BatchStorage} from "./BatchStorage.sol";
 import {Status, Batch, Recall} from "../PorkTypes.sol";
 
-/// @title Recall manager (Sections 5.7, 6.4)
+/// @title Recall manager
 /// @notice A recall writes one flag on the recalled batch. Every descendant is treated as recalled
 ///         from that moment because isRecalled() walks the ancestry; forward propagation for
 ///         notifications is computed off-chain by the indexer from the events.

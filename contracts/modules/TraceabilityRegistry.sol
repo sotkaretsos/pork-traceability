@@ -6,7 +6,7 @@ import {
     ProductType, StorageType, Status, Origin, Batch, Inspection, Shipment, TempLimit, Cooking
 } from "../PorkTypes.sol";
 
-/// @title Traceability registry (Sections 4, 5.2–5.5, 6.1–6.3)
+/// @title Traceability registry
 /// @notice Creates batches, records inspections, transformations and two-step custody transfers,
 ///         derives origin from the inputs and enforces mass balance from carcass to plate.
 abstract contract TraceabilityRegistry is BatchStorage {
@@ -311,7 +311,7 @@ abstract contract TraceabilityRegistry is BatchStorage {
         }
     }
 
-    /// @dev Each role may perform only its own product transition (Section 6.1).
+    /// @dev Each role may perform only its own product transition.
     function _checkTransition(ProductType from, ProductType to) private view {
         bytes32 role;
         if (from == ProductType.CARCASS && to == ProductType.PRIMAL_CUT) {

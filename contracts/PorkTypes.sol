@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-/// @notice Product types along the chain (Table 3). Each transformation moves one level up.
+/// @notice Product types along the chain. Each transformation moves one level up.
 enum ProductType {
     CARCASS,
     PRIMAL_CUT,
@@ -10,13 +10,13 @@ enum ProductType {
     SERVING_LOT
 }
 
-/// @notice Storage regime; selects the temperature limit (Table 7).
+/// @notice Storage regime; selects the temperature limit.
 enum StorageType {
     CHILLED,
     FROZEN
 }
 
-/// @notice Batch life cycle (Figure 3).
+/// @notice Batch life cycle.
 enum Status {
     PENDING_INSPECTION,
     ACTIVE,
@@ -34,7 +34,7 @@ struct Origin {
     bytes2 countryOfSlaughter;
 }
 
-/// @notice The unit of traceability (Section 4.1).
+/// @notice The unit of traceability.
 struct Batch {
     ProductType productType;
     StorageType storageType;

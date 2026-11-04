@@ -6,7 +6,7 @@ import {
     ProductType, StorageType, Status, Batch, Device, Shipment, ColdChainSummary, TempLimit
 } from "../PorkTypes.sol";
 
-/// @title Cold-chain monitor (Sections 3.2, 5.4, 6.5)
+/// @title Cold-chain monitor
 /// @notice Stores signed temperature summaries from IoT gateways, compares them with the
 ///         product-specific limit set by the authority and quarantines batches on a breach.
 ///         Temperatures are int16 in tenths of a degree Celsius (7 °C = 70, −18 °C = −180).

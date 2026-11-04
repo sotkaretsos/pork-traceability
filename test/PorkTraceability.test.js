@@ -113,7 +113,7 @@ describe("PorkTraceability", function () {
       expect(await c.hasRole(R.SENSOR, truckSensor.address)).to.be.false;
     });
 
-    it("sets the default temperature limits of Table 7", async function () {
+    it("sets the default temperature limits", async function () {
       const { c } = await loadFixture(deployFixture);
       expect((await c.temperatureLimit(P.CARCASS, S.CHILLED)).maxTemp).to.equal(70);
       expect((await c.temperatureLimit(P.GYROS_CONE, S.CHILLED)).maxTemp).to.equal(40);

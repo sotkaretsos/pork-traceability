@@ -20,7 +20,7 @@ import {
 /// @notice Holds the batch graph and the per-batch records written by the other modules,
 ///         plus the helpers they share (status changes, quarantine, ancestry walk).
 abstract contract BatchStorage is AccessRegistry {
-    /// @notice Inputs per transformation are capped so the ancestry walk in isRecalled() stays bounded (Section 6.4).
+    /// @notice Inputs per transformation are capped so the ancestry walk in isRecalled() stays bounded.
     uint256 public constant MAX_INPUTS = 16;
     uint256 public constant MAX_OUTPUTS = 64;
     uint256 public constant MAX_BATCHES_PER_REPORT = 64;
@@ -58,7 +58,7 @@ abstract contract BatchStorage is AccessRegistry {
         return _existing(batchId).origin;
     }
 
-    /// @notice True if the batch or any of its ancestors has been recalled (Section 6.4).
+    /// @notice True if the batch or any of its ancestors has been recalled.
     function isRecalled(bytes32 batchId) public view returns (bool) {
         _existing(batchId);
         return _isRecalled(batchId);
