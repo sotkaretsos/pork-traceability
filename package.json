@@ -1,7 +1,7 @@
 {
-  "name": "pork-trace-simplified",
-  "version": "1.0.0",
-  "description": "Simplified restaurant-and-customer pork traceability smart contract (PorkTrace)",
+  "name": "pork-traceability",
+  "version": "2.0.0",
+  "description": "Blockchain traceability smart contracts for pork in food service",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
