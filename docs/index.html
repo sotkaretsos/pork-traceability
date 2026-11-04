@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pork Traceability · Simplified model</title>
+  <meta name="description" content="The PorkTrace smart contract of the simplified model running in your browser: one day at a souvlaki restaurant, the customer's verification page, and attempts to break the rules.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 56L56 8' stroke='%237d3219' stroke-width='4' stroke-linecap='round'/%3E%3Crect x='14' y='34' width='16' height='12' rx='4' transform='rotate(-45 22 40)' fill='%23a3472a'/%3E%3Crect x='26' y='22' width='16' height='12' rx='4' transform='rotate(-45 34 28)' fill='%23c4673f'/%3E%3Crect x='38' y='10' width='16' height='12' rx='4' transform='rotate(-45 46 16)' fill='%23a3472a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <p class="eyebrow">Live demo · Simplified model · Release 1.0.0</p>
+      <h1>Pork Traceability <span class="muted" style="font-size:0.55em">simplified model</span></h1>
+      <p class="lede">The simplified model of <cite>Blockchain Traceability Architecture for Pork in Food Service</cite> runs here, in your browser. The souvlaki restaurant is the only party that writes: it records what it knows about each delivery, and the customer reads the records of the serving lot on the receipt through a QR code.</p>
+      <ul class="facts">
+        <li>Solidity 0.8.24 · London EVM</li>
+        <li>One contract, three account roles</li>
+        <li>Runs locally</li>
+      </ul>
+      <nav class="links">
+        <a class="btn ghost" href="https://github.com/sotkaretsos/pork-traceability/tree/simplified">Project repository (v1.0.0)</a>
+        <a class="btn ghost" href="../">Full supply-chain model (v2.0.0)</a>
+        <a class="btn ghost" href="THIRD_PARTY_NOTICES.txt">Third-party licenses</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="replay-title">
+      <div class="section-head">
+        <h2 id="replay-title"><span class="n">1</span> Replay a day at the restaurant</h2>
+        <p>Four deliveries arrive, the fridge and freezer sensors report their temperatures, and the restaurant serves a lunch lot and a dinner lot. In the evening a supplier recalls one of the batches. Every step is a transaction on the contract.</p>
+      </div>
+
+      <div class="controls">
+        <button id="run-next" class="btn primary" type="button" disabled>Run next step</button>
+        <button id="run-all" class="btn" type="button" disabled>Run all</button>
+        <button id="restart" class="btn ghost" type="button" disabled>Start over</button>
+        <label class="toggle"><input id="pace" type="checkbox"> Presentation pace</label>
+        <p id="status" class="status busy" role="status">Loading…</p>
+      </div>
+
+      <div class="replay-grid">
+        <ol id="steps" class="steps" aria-label="Replay steps"></ol>
+
+        <aside class="card certificate" aria-labelledby="lot-title">
+          <p class="card-kicker">Consumer verification page · QR on the receipt</p>
+          <div id="lot-tabs" class="lot-tabs" role="tablist" aria-label="Serving lot"></div>
+          <h3 id="lot-title" class="sr-only">Serving lot</h3>
+          <div class="cert-top">
+            <span id="lot-status" class="pill none">Not served yet</span>
+            <span id="lot-portions" class="version">–</span>
+          </div>
+          <p id="lot-origin" class="origin-line">–</p>
+          <p id="lot-origin-detail" class="cert-note" hidden></p>
+          <p id="lot-note" class="cert-note">The page fills in once the restaurant opens the lot.</p>
+          <ul id="lot-checks" class="checks"></ul>
+          <dl class="kv">
+            <dt>Supplier</dt><dd id="lot-supplier">–</dd>
+            <dt>Slaughterhouse</dt><dd id="lot-sh">–</dd>
+            <dt>Oldest slaughter</dt><dd id="lot-slaughter">–</dd>
+            <dt>Lot opened</dt><dd id="lot-served">–</dd>
+          </dl>
+          <p class="card-kicker">Delivery batches used</p>
+          <ol id="lot-chain" class="chain"></ol>
+        </aside>
+      </div>
+
+      <div id="check" class="check" hidden></div>
+
+      <div class="card table-card">
+        <div class="feed-head">
+          <h3>Ledger feed</h3>
+          <span class="muted small"><span id="feed-count">0 entries</span> · newest first · <span id="totals"></span></span>
+        </div>
+        <div class="scroll feed-scroll">
+          <table id="feed">
+            <thead>
+              <tr><th class="num">#</th><th>Chain date (UTC)</th><th>Step</th><th>Actor</th><th>Function</th><th>Detail</th><th class="num">Gas</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="attacks-title">
+      <div class="section-head">
+        <h2 id="attacks-title"><span class="n">2</span> Try to break the rules</h2>
+        <p>Each attempt is sent to the deployed contract on a snapshot of the chain and rolled back afterwards, so the replayed day stays intact. The tag names the rule that applies.</p>
+      </div>
+      <div id="attacks" class="attacks"></div>
+    </section>
+
+    <section aria-labelledby="how-title" class="how">
+      <div class="section-head">
+        <h2 id="how-title"><span class="n">3</span> How this page works</h2>
+      </div>
+      <div class="how-grid">
+        <div>
+          <h3>Same bytecode as the repository</h3>
+          <p>The page loads the bytecode compiled from the repository's Solidity sources (Solidity 0.8.24, intermediate-representation pipeline, 200 optimizer runs, London rules) and executes it with the EthereumJS virtual machine. The verification page is read with the contract's own view functions: <code>getLotSummary</code>, which returns everything the page shows in one call, plus <code>getLot</code> and <code>getBatch</code> for the batch details.</p>
+        </div>
+        <div>
+          <h3>A private test chain in this tab</h3>
+          <p>Chain ID 31337, zero gas price and one block per transaction, as on the restaurant's private Hyperledger Besu network. Block timestamps follow the dates of the scenario. Accounts come from the public Hardhat test mnemonic; supplier names, batch codes and approval numbers are fictitious, and nothing leaves your browser.</p>
+        </div>
+        <div>
+          <h3>Run it yourself</h3>
+          <p>Check out the <code>simplified</code> branch, then run <code>npm install --legacy-peer-deps</code> and <code>npm test</code> for the 16 contract tests. The same scenario runs in Node with <code>cd demo &amp;&amp; npm ci &amp;&amp; npm run test:node</code>, and <code>npm run build</code> rebuilds this page.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Companion code of <cite>Blockchain Traceability Architecture for Pork in Food Service</cite> by Sotirios Karetsos, Informatics Laboratory, Agricultural University of Athens.</p>
+    </div>
+  </footer>
+  <script src="assets/demo.js" defer></script>
+</body>
+</html>
