@@ -5,6 +5,16 @@
 Υλοποίηση σε Solidity των smart contracts του πλήρους μοντέλου (*Full supply chain*) του εγγράφου *Blockchain Traceability Architecture for Pork in Food Service*.
 Η αλυσίδα είναι σφαγείο → τεμαχιστήριο → μεταποιητής → ψυκτική μεταφορά → σουβλατζίδικο → καταναλωτής, σε ιδιωτικό Hyperledger Besu (QBFT, gas price 0).
 
+## Live demo
+
+Η σελίδα στον φάκελο `docs/` τρέχει το contract μέσα στον browser (EthereumJS VM), με ένα σενάριο από τη σφαγή ως το σερβίρισμα και την ανάκληση, τη σελίδα επαλήθευσης του καταναλωτή και δέκα απόπειρες παραβίασης των κανόνων. Δημοσιεύεται με GitHub Pages από το branch `main`, φάκελος `/docs`.
+
+```bash
+npx hardhat compile
+cd demo && npm ci && npm run test:node   # το σενάριο σε Node, γράφει το demo/reference.json
+npm run build                            # ξαναχτίζει το docs/assets/demo.js και τις άδειες τρίτων
+```
+
 ## Δομή
 
 | Αρχείο | Module |
